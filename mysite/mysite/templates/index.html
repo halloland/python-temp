@@ -1,0 +1,207 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Form</title>
+
+</head>
+<body>
+	<form id='form' action = "" method = 'post'>
+		 {% csrf_token %}
+		<p><b>Наименование проекта:</b><br>
+			<input type="text" name="project_name">
+		</p>
+		<p><b>Цель проекта:</b><br>
+			<input type="text" name="project_goal">
+		</p>
+
+	<h1>1. Основные этапы реализации проекта</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>
+						№
+					</th>
+					<th>
+						Наименование проекта
+					</th>
+					<th colspan="2">
+						Дата
+					</th>
+					<th>
+						Результат от реализации проекта
+					</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th></th>
+					<th></th>
+					<th>Начала</th>
+					<th>Окончания</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="form-section-placeholder1">
+					<th><input type="number" name="form1[number][]"></th>
+					<th><input type="text" name="form1[text][]"></th>
+					<th><input type="date" name="form1[startDate][]"></th>
+					<th><input type="date" name="form1[endDate][]"></th>
+					<th><input type="text" name="form1[result][]"></th>
+					<th><button type="button" onclick="addMoreItems(event, 'form-section-placeholder1')">+</button></th>
+				</tr>
+			</tbody>
+		</table>
+		
+
+	<h1>2. Структура затрат проекта</h1>
+		
+		<table>
+			<thead>
+			<tr>
+				<th>
+					№
+				</th>
+				<th>Статья затрат проекта</th>
+				<th colspan="4">Фактические затраты по проекту, руб.</th>
+			</tr>
+		
+			<tr>
+				<th></th>
+				<th></th>
+				<th>1 кв.2023 г.</th>
+				<th>2 кв. 2022 г.</th>
+				<th>3 кв. 2023 г.</th>
+				<th>4 кв. 2023 г.</th>
+		
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr id="form-section-placeholder2">
+				<th><input type="number" name="form2[number][]"></th>
+				<th><input type="text" name="form2[state][]" ></th>
+				<th><input type="number" name="form2[q1][]"></th>
+				<th><input type="number" name="form2[q2][]"></th>
+				<th><input type="number" name="form2[q3][]"></th>
+				<th><input type="number" name="form2[q4][]"></th>
+				<th><button type="button" onclick="addMoreItems(event, 'form-section-placeholder2')">+</button></th>
+				
+			</tr>
+		</tbody>
+			<tr>
+				<th></th>
+				<th>ВСЕГО ПО ЗАТРАТАМ:</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+		
+				
+			</tr>
+	
+		</table>
+		
+
+	<h1> 3. Источники финансирования проекта</h1>
+	
+		<table>
+			<thead>
+			<tr>
+				<th>№</th>
+				<th>Источник</th>
+				<th colspan="4">Фактически вложено средств в проект, руб.</th>
+
+			</tr>
+
+
+			<tr>
+				<th></th>
+				<th></th>
+				<th>1 кв.2023 г.</th>
+				<th>2 кв.2023 г.</th>
+				<th>3 кв.2023 г.</th>
+				<th>4 кв.2023 г.</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<th><input type="number" name ="form3[number][]"></th>
+				<th>Средства полученные от Акселератора</th>
+				<th><input type="number" name ="form3[q1][]"></th>
+				<th><input type="number" name ="form3[q2][]"></th>
+				<th><input type="number" name ="form3[q3][]"></th>
+				<th><input type="number" name ="form3[q4][]"></th>
+			</tr>
+
+			<tr>
+				<th ></th>
+				<th>Собственные средства, в т.ч.:</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+
+			</tr>
+
+			<tr id="form-section-placeholder3">
+				<th ><input type="number" name ="form3[number][]"></th>
+				<th><input type="text" name ="form3[source][]"></th>
+				<th><input type="number" name ="form3[q1][]"></th>
+				<th><input type="number" name ="form3[q2][]"></th>
+				<th><input type="number" name ="form3[q3][]"></th>
+				<th><input type="number" name ="form3[q4][]"></th>
+				<th><button type="button" onclick="addMoreItems(event, 'form-section-placeholder3')">+</button></th>
+				
+			</tr>
+		</tbody>
+			<tr>
+				<th></th>
+				<th>ИТОГО ПО ИСТОЧНИКАМ ФИНАНСИРОВАНИЯ:</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				
+			</tr>
+		</table>
+		<button type="button" onclick="submitFormData()">Submit Data</button>
+	</form>
+</body>
+<script>
+	function addMoreItems(event, placeholderId) {
+    // Prevent the default form submission if the button is inside a form
+    event.preventDefault();
+
+    // Find the row to clone - here it is the row with id 'form-section-placeholder'
+    var rowToClone = document.getElementById(placeholderId);
+
+    // Clone the row
+    var newRow = rowToClone.cloneNode(true);
+
+    // Reset the input values in the cloned row
+    newRow.querySelectorAll('input').forEach(input => input.value = '');
+
+    // Append the new row to the tbody of the table
+    rowToClone.parentNode.appendChild(newRow);
+}
+
+function submitFormData() {
+    const formData = new FormData(document.getElementById('form'));
+
+    fetch('/api/put', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+</script>
+</html>
